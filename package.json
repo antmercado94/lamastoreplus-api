@@ -12,7 +12,7 @@
   "dependencies": {
     "@strapi/plugin-i18n": "4.9.1",
     "@strapi/plugin-users-permissions": "4.9.1",
-    "@strapi/strapi": "4.9.1",
+    "@strapi/strapi": "4.10.5",
     "better-sqlite3": "8.0.1",
     "node-postgres": "^0.6.2",
     "pg": "^8.11.0",
@@ -25,7 +25,7 @@
     "uuid": "6ed620eb-7204-40aa-853b-e0eae5c6aff9"
   },
   "engines": {
-    "node": ">=14.19.1 <=18.x.x",
+    "node": "18.12.1",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
