@@ -1,5 +1,3 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
-
 ("use strict");
 
 /**
@@ -7,6 +5,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
  */
 
 const { createCoreController } = require("@strapi/strapi").factories;
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const baseUrl = process.env.CLIENT_URL || "http://localhost:3000";
 
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
@@ -43,8 +43,8 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         invoice_creation: {
           enabled: true,
         },
-        success_url: `${process.env.CLIENT_URL}?success=true`,
-        cancel_url: `${process.env.CLIENT_URL}?success=false`,
+        success_url: `${baseUrl}?success=true`,
+        cancel_url: `${baseUrl}?success=false`,
         line_items: lineItems,
         shipping_address_collection: {
           allowed_countries: ["US", "CA"],
@@ -74,11 +74,6 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       const { user } = ctx.state; // receive user state after jwt auth
 
       if (!user) throw new Error("User could not be properly authenticated");
-
-      const baseUrl =
-        process.env.NODE_ENV === "development"
-          ? process.env.CLIENT_URL
-          : `https://${process.env.HOST}`;
 
       // establish billing session
       const stripeBillingPortalSession =
